@@ -39,6 +39,12 @@ router.get("/projects", (req, res, next) => {
 router.get("/projects/:projectId", (req, res, next) => {
     const {projectId} = req.params;
 
+    // validate projectId
+    if (!mongoose.Types.ObjectId.isValid(projectId)) {
+        res.status(400).json({ message: 'Specified id is not valid' });
+        return;
+    }
+
     Project.findById(projectId)
         .then( (projectDetails) => {
             res.json(projectDetails);
@@ -55,8 +61,13 @@ router.get("/projects/:projectId", (req, res, next) => {
 router.put("/projects/:projectId", (req, res, next) => {
 
     const {projectId} = req.params;
-
     const {title, description} = req.body;
+
+    // validate projectId
+    if (!mongoose.Types.ObjectId.isValid(projectId)) {
+        res.status(400).json({ message: 'Specified id is not valid' });
+        return;
+    }
 
     Project.findByIdAndUpdate(projectId, {title, description}, { new: true })
         .then( (updatedProject) => {
@@ -76,6 +87,12 @@ router.put("/projects/:projectId", (req, res, next) => {
 router.delete("/projects/:projectId", (req, res, next) => {
 
     const {projectId} = req.params;
+
+    // validate projectId
+    if (!mongoose.Types.ObjectId.isValid(projectId)) {
+        res.status(400).json({ message: 'Specified id is not valid' });
+        return;
+    }
 
     Project.findByIdAndDelete(projectId)
         .then( () => {
