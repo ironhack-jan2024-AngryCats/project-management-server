@@ -28,9 +28,9 @@ mongoose
 // POST /projects
 app.post("/projects", (req, res, next) => {
 
-    const {title, price} = req.body;
+    const {title, description, tasks, startDate, endDate, collaborators, documentation} = req.body;
 
-    Project.create({title, price})
+    Project.create({title, description, tasks, startDate, endDate, collaborators, documentation})
         .then( (projectFromDB) => {
             res.status(201).json(projectFromDB)
         })
@@ -72,6 +72,37 @@ app.get("/projects/:projectTitle", (req, res, next) => {
             res.status(500).json({message: "Error getting project details"})
         });
 })
+
+// PUT /projects/:projectTitle
+app.put("/projects/:projectTitle", (req, res, next) => {
+    const {projectTitle} = req.params;
+    const {title, description, tasks, startDate, endDate, collaborators, documentation} = req.body;
+
+    Project.findOneAndUpdate({title: projectTitle}, {title, description, tasks, startDate, endDate, collaborators, documentation}, {new: true})
+        .then( (projectDetails) => {
+            res.json(projectDetails);
+        })
+        .catch( (e) => {
+            console.log("Error updating project details");
+            console.log(e)
+            res.status(500).json({message: "Error updating project details"})
+        });
+});
+
+//DELETE /projects/:projectTitle
+app.delete("/projects/:projectTitle", (req, res, next) => {
+    const {projectTitle} = req.params;
+
+    Project.findOneAndDelete({title: projectTitle})
+    .then (() => {
+        res.json({message: "Project deleted"});
+    })
+    .catch( (e) => {
+        console.log("Error deleting project");
+        console.log(e)
+        res.status(500).json({message: "Error deleting project"})
+    });
+});
 
 
 
