@@ -2,8 +2,14 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const projectSchema = new Schema({
-  title: String,
-  description: String,
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  }
 });
 
 

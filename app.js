@@ -28,9 +28,9 @@ mongoose
 // POST /projects
 app.post("/projects", (req, res, next) => {
 
-    const {title, price} = req.body;
+    const {title, description} = req.body;
 
-    Project.create({title, price})
+    Project.create({title, description})
         .then( (projectFromDB) => {
             res.status(201).json(projectFromDB)
         })
