@@ -35,11 +35,11 @@ router.get("/projects", (req, res, next) => {
 
 
 
-// GET /projects/:projectTitle 
-router.get("/projects/:projectTitle", (req, res, next) => {
-    const {projectTitle} = req.params;
+// GET /projects/:projectId 
+router.get("/projects/:projectId", (req, res, next) => {
+    const {projectId} = req.params;
 
-    Project.findOne({title: projectTitle})
+    Project.findById(projectId)
         .then( (projectDetails) => {
             res.json(projectDetails);
         })
