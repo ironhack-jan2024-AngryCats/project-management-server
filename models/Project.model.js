@@ -9,7 +9,11 @@ const projectSchema = new Schema({
   description: {
     type: String,
     required: true
-  }
+  },
+  tasks: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Task'
+  }]
 });
 
 

@@ -23,7 +23,7 @@ mongoose
 
 
 app.use("/", require("./routes/project.routes"));
-
+app.use("/", require("./routes/task.routes"));
 
 
 
