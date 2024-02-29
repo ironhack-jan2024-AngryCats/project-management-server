@@ -51,4 +51,43 @@ router.get("/projects/:projectId", (req, res, next) => {
 })
 
 
+// PUT /projects/:projectId 
+router.put("/projects/:projectId", (req, res, next) => {
+
+    const {projectId} = req.params;
+
+    const {title, description} = req.body;
+
+    Project.findByIdAndUpdate(projectId, {title, description}, { new: true })
+        .then( (updatedProject) => {
+            res.json(updatedProject);
+        })
+        .catch( (e) => {
+            console.log("Error updating project");
+            console.log(e)
+            res.status(500).json({message: "Error updating project"})
+        });
+
+});
+
+
+
+// DELETE /projects/:projectId 
+router.delete("/projects/:projectId", (req, res, next) => {
+
+    const {projectId} = req.params;
+
+    Project.findByIdAndDelete(projectId)
+        .then( () => {
+            res.json({ message: `Project with ${projectId} is removed successfully.` })
+        })
+        .catch( (e) => {
+            console.log("Error deleting project");
+            console.log(e)
+            res.status(500).json({message: "Error deleting project"})
+        });
+});
+
+
+
 module.exports = router;
