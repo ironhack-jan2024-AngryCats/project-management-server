@@ -24,6 +24,7 @@ router.post("/projects", (req, res, next) => {
 // GET /projects
 router.get("/projects", (req, res, next) => {
     Project.find()
+        .populate("tasks")
         .then( (projectsFromDB) => {
             res.json(projectsFromDB);
         })
@@ -47,6 +48,7 @@ router.get("/projects/:projectId", (req, res, next) => {
     }
 
     Project.findById(projectId)
+        .populate("tasks")
         .then( (projectDetails) => {
             res.json(projectDetails);
         })
