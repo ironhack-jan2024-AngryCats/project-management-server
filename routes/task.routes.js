@@ -3,9 +3,12 @@ const router = require('express').Router();
 const Task = require("../models/Task.model");
 const Project = require("../models/Project.model");
 
+const {isAuthenticated} = require("../middleware/jwt.middleware");
+
+
 
 // POST /tasks
-router.post("/tasks", async (req, res, next) => {
+router.post("/tasks", isAuthenticated, async (req, res, next) => {
 
     const { title, description, projectId } = req.body;
 
