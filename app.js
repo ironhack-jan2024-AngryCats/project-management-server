@@ -22,6 +22,7 @@ mongoose
 
 
 
+app.use("/auth", require("./routes/auth.routes"));
 app.use("/", require("./routes/project.routes"));
 app.use("/", require("./routes/task.routes"));
 
