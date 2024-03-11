@@ -28,6 +28,7 @@ app.use("/", require("./routes/project.routes"));
 app.use("/", require("./routes/task.routes"));
 
 
+const PORT = process.env.PORT || 5005;
 
 // Start the server
-app.listen(3000, () => console.log("My first app listening on port 3000! "));
+app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
